@@ -34,6 +34,8 @@ You can then test that you can connect to APNS using this file with the command 
 
 If you get an "unable to get local issuer certificate" error, try downloading [this file](https://www.entrust.net/downloads/binary/entrust_2048_ca.cer) and putting it in the same place as your p12 and pem files.
 
+Also bear in mind that these certificates are typically only valid for a year, so you'll have to run through the process annually.
+
 Sending a test push
 ----
 If you've configured everything correctly, and are at the point where you are successfully able to subscribe to notifications through Safari, you can manually send a test notification from Terminal with:
