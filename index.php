@@ -191,7 +191,7 @@ else { // just other demo-related stuff
 
 function connect_apns($apnsHost, $apnsPort, $apnsCert) {
 	$streamContext = stream_context_create();
-	stream_context_set_option($streamContext, 'ssl', 'local_cert', PRODUCTION_CERTIFICATE_PATH);
+	stream_context_set_option($streamContext, 'ssl', 'local_cert', $apnsCert);
 	return stream_socket_client('ssl://' . $apnsHost . ':' . $apnsPort, $error, $errorString, 60, STREAM_CLIENT_CONNECT, $streamContext);
 }
 
