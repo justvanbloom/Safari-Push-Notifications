@@ -11,7 +11,8 @@ SSL-based server (NOT A self-signed one), PHP, Apple developer account
 Usage
 ----
  - Register your site with Apple (refer to [this document](https://developer.apple.com/library/mac/documentation/NetworkingInternet/Conceptual/NotificationProgrammingGuideForWebsites/PushNotifications/PushNotifications.html#//apple_ref/doc/uid/TP40013225-CH3-SW1) )
- - Upload all files to the *root* (eg. `https://push.myserver.com/`), and be sure to include both your `Certificate.p12` and `Website_Push_ID_Production_Certificate.pem` from Apple.
+ - Download [this file](https://www.entrust.net/downloads/binary/entrust_2048_ca.cer)
+ - Upload all files to the *root* (eg. `https://push.myserver.com/`), and be sure to include the `entrust_2048_ca.cer` file, your `Certificate.p12` and `Website_Push_ID_Production_Certificate.pem` from Apple.
  - Create a mysql database as per `push.sql`
  - Edit `config-sample.php` and save it as `config.php`
  - Replace the images in `pushPackage.raw/icon.iconset/`
@@ -31,8 +32,6 @@ The cer file is used to actually send out push notifications by the server (to e
 To perform this conversion, use the command `openssl x509 -in website_aps_production.cer -inform DER -out apns-cert.pem -outform PEM` in Terminal. See [this Stackoverflow article](http://stackoverflow.com/questions/1762555/creating-pem-file-for-apns) for more information, and also [this link](http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1) for an alternate method.
 
 You can then test that you can connect to APNS using this file with the command `openssl s_client -connect gateway.push.apple.com:2195 -CAfile apns-cert.pem`
-
-If you get an "unable to get local issuer certificate" error, try downloading [this file](https://www.entrust.net/downloads/binary/entrust_2048_ca.cer) and putting it in the same place as your p12 and pem files.
 
 Also bear in mind that these certificates are typically only valid for a year, so you'll have to run through the process annually.
 

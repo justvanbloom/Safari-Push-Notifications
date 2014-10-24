@@ -120,7 +120,7 @@ else if ($function == "push") { //pushes a notification
 		$retryAttempts = 3;
 		$batchSize = 100; // 100 seems to be the magic number, see https://github.com/surrealroad/Safari-Push-Notifications/issues/13#issuecomment-45958321
 		$batchNo = 0;
-		$apns = connect_apns(APNS_HOST, APNS_PORT, PRODUCTION_CERTIFICATE_PATH);
+		$apns = connect_apns(APNS_HOST, APNS_PORT, PRODUCTION_CERTIFICATE_PATH, CERTIFICATE_AUTHORITY, CERTIFICATE_PASSWORD);
 
 		foreach($deviceTokens as $deviceToken) {
 			$retries = 0;
@@ -189,9 +189,11 @@ else { // just other demo-related stuff
 	include ("desktop.php");
 }
 
-function connect_apns($apnsHost, $apnsPort, $apnsCert) {
+function connect_apns($apnsHost, $apnsPort, $apnsCert, $caFile, $passphrase) {
 	$streamContext = stream_context_create();
 	stream_context_set_option($streamContext, 'ssl', 'local_cert', $apnsCert);
+        stream_context_set_option($streamContext, 'ssl', 'passphrase', $passphrase);                 
+        stream_context_set_option($streamContext, 'ssl', 'cafile', $caFile); 
 	return stream_socket_client('tls://' . $apnsHost . ':' . $apnsPort, $error, $errorString, 60, STREAM_CLIENT_CONNECT, $streamContext);
 }
 
