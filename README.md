@@ -25,12 +25,16 @@ Common issues
 Generating the .pem file
 ----
 During the push registration process you should receive two files, the `.p12` and `website_aps_production.cer` file. Apple calls this last one a "Website Push ID Production Certificate".
-The p12 file is used to create a push package (to request the user to accept notifications from your site).
+The p12 file is used to create a push package (to request the user to accept notifications from your site). You should be able to get another copy of this p12 file from your keychain, [see this link](http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1)
 The cer file is used to actually send out push notifications by the server (to establish communication with APNS), but it seems it must be converted into a `.pem` file first, which the official documentation doesn't mention.
 
-To perform this conversion, use the command `openssl x509 -in website_aps_production.cer -inform DER -out apns-cert.pem -outform PEM` in Terminal. See [this Stackoverflow article](http://stackoverflow.com/questions/1762555/creating-pem-file-for-apns) for more information.
+To perform this conversion, use the command `openssl x509 -in website_aps_production.cer -inform DER -out apns-cert.pem -outform PEM` in Terminal. See [this Stackoverflow article](http://stackoverflow.com/questions/1762555/creating-pem-file-for-apns) for more information, and also [this link](http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1) for an alternate method.
 
 You can then test that you can connect to APNS using this file with the command `openssl s_client -connect gateway.push.apple.com:2195 -CAfile apns-cert.pem`
+
+If you get an "unable to get local issuer certificate" error, try downloading [this file](https://www.entrust.net/downloads/binary/entrust_2048_ca.cer) and putting it in the same place as your p12 and pem files.
+
+Also bear in mind that these certificates are typically only valid for a year, so you'll have to run through the process annually.
 
 Sending a test push
 ----
