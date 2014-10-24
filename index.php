@@ -120,7 +120,7 @@ else if ($function == "push") { //pushes a notification
 		$retryAttempts = 3;
 		$batchSize = 100; // 100 seems to be the magic number, see https://github.com/surrealroad/Safari-Push-Notifications/issues/13#issuecomment-45958321
 		$batchNo = 0;
-		$apns = connect_apns(APNS_HOST, APNS_PORT, PRODUCTION_CERTIFICATE_PATH, CERTIFICATE_AUTHORITY, PRODUCTION_CERTIFICATE_PASSWORD);
+		$apns = connect_apns(APNS_HOST, APNS_PORT, PRODUCTION_CERTIFICATE_PATH, CERTIFICATE_AUTHORITY, CERTIFICATE_PASSWORD);
 
 		foreach($deviceTokens as $deviceToken) {
 			$retries = 0;
