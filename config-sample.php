@@ -38,6 +38,7 @@ define('URL_FORMAT', 'http://example.com/%@');
 define('CERTIFICATE_PATH', './MyCertificate.p12');     // Change this to the path where your certificate is located
 define('CERTIFICATE_PASSWORD', 'password_here'); // Change this to the certificate's import password
 define('PRODUCTION_CERTIFICATE_PATH', './apns-cert.pem'); // Change this to the path to your Website Push ID Production Certificate
+define('CERTIFICATE_AUTHORITY', 'entrust_2048_ca.cer')
 
 
 // ** Authorisation code for requesting push notifications to be sent ** //
