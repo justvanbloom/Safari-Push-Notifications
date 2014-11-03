@@ -151,9 +151,8 @@ else if ($function == "push") { //pushes a notification
 else if ($function == "log") { //writes a log message
 	$cont = file_get_contents('php://input');	
 	$log = json_decode($cont);	
-	$fp = fopen('logs/request.log', 'a');
-	fwrite($fp, implode("\n", $log->logs)."\n");
-	fclose($fp);
+	$file = 'logs/request.log';
+	file_put_contents($file, $log['logs']);
 }
 else if ($function == "list") { //return a list of subscribers
 	$auth = $_REQUEST["auth"];
