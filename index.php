@@ -129,11 +129,16 @@ else if ($function == "push") { //pushes a notification
 					$batchNo = 0;
 					fclose($apns);
 					$apns = connect_apns(APNS_HOST, APNS_PORT, PRODUCTION_CERTIFICATE_PATH);
+					//echo $apns;
 				} elseif(!send_payload($apns, $deviceToken, $payload)) {
 					fclose($apns);
 					$apns = connect_apns(APNS_HOST, APNS_PORT, PRODUCTION_CERTIFICATE_PATH);
 					$retries++;
-				} else {
+				} elseif(!$apns) {
+					echo "Failed to connect to APNS: {".$error."} {".$errorString."}.";
+					break;
+				}
+				else {
 					$success++;
 					break;
 				}
@@ -141,7 +146,7 @@ else if ($function == "push") { //pushes a notification
 			endwhile;
 		}
 		fclose($apns);
-		echo $success." of ".count($deviceTokens)." device(s) notified";
+		if($success) echo $success." of ".count($deviceTokens)." device(s) notified";
 		exit();
 	} else {
 		echo "Invalid authorisation";
